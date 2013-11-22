@@ -11,6 +11,7 @@ from . import NotificationError, PUSH_NOTIFICATIONS_SETTINGS as SETTINGS
 
 SETTINGS.setdefault("GCM_POST_URL", "https://android.googleapis.com/gcm/send")
 SETTINGS.setdefault("GCM_MAX_RECIPIENTS", 1000)
+SETTINGS.setdefault("GCM_TITLE", "Title")
 
 class GCMError(NotificationError):
 	pass
@@ -29,6 +30,8 @@ def _gcm_send(data, content_type):
 	if not key:
 		raise ImproperlyConfigured('You need to set PUSH_NOTIFICATIONS_SETTINGS["GCM_API_KEY"] to send messages through GCM.')
 
+	data["title"] = SETTINGS.get("GCM_TITLE")
+	
 	headers = {
 		"Content-Type": content_type,
 		"Authorization": "key=%s" % (key),
