@@ -43,7 +43,7 @@ class GCMDevice(Device):
 
 	def send_message(self, message):
 		from .gcm import gcm_send_message
-		return gcm_send_message(registration_id=self.registration_id, data={"msg": message}, collapse_key="message")
+		return gcm_send_message(registration_id=self.registration_id, data={"message": message}, collapse_key="message")
 
 
 class APNSDeviceManager(models.Manager):
