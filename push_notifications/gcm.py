@@ -29,8 +29,6 @@ def _gcm_send(data, content_type):
 	key = SETTINGS.get("GCM_API_KEY")
 	if not key:
 		raise ImproperlyConfigured('You need to set PUSH_NOTIFICATIONS_SETTINGS["GCM_API_KEY"] to send messages through GCM.')
-
-	data["title"] = SETTINGS.get("GCM_TITLE")
 	
 	headers = {
 		"Content-Type": content_type,
@@ -60,6 +58,8 @@ def gcm_send_message(registration_id, data, collapse_key=None):
 		"registration_id": registration_id,
 		"collapse_key": collapse_key,
 	}
+	
+	data["title"] = SETTINGS.get("GCM_TITLE")
 
 	for k, v in data.items():
 		values["data.%s" % (k)] = v.encode("utf-8")
