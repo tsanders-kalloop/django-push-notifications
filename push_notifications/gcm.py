@@ -82,6 +82,8 @@ def gcm_send_bulk_message(registration_ids, data, collapse_key=None, delay_while
 		for chunk in chunks(registration_ids):
 			ret.append(gcm_send_bulk_message(chunk, data, collapse_key, delay_while_idle))
 		return "\n".join(ret)
+		
+	data["title"] = SETTINGS.get("GCM_TITLE")
 
 	values = {
 		"registration_ids": registration_ids,
